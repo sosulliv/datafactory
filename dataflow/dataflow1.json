@@ -1,0 +1,24 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Aggregate1"
+				}
+			],
+			"script": "\n\nsource(output(\n\t\tSalesQuotaKey as integer,\n\t\tEmployeeKey as integer,\n\t\tDateKey as integer,\n\t\tCalendarYear as integer,\n\t\tCalendarQuarter as integer,\n\t\tSalesAmountQuota as decimal(19,4),\n\t\tDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 aggregate(groupBy(SalesAmountQuota),\n\tSalesAmountQuota = sum()) ~> Aggregate1"
+		}
+	}
+}
