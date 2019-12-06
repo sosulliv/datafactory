@@ -1,0 +1,54 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SalesQuotaKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EmployeeKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DateKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CalendarYear",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "CalendarQuarter",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "SalesAmountQuota",
+				"type": "money",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactSalesQuota"
+		}
+	}
+}
