@@ -26,7 +26,7 @@
 					"name": "Aggregate1"
 				}
 			],
-			"script": "\n\nsource(output(\n\t\tSalesQuotaKey as integer,\n\t\tEmployeeKey as integer,\n\t\tDateKey as integer,\n\t\tCalendarYear as integer,\n\t\tCalendarQuarter as integer,\n\t\tSalesAmountQuota as decimal(19,4),\n\t\tDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 aggregate(groupBy(SalesAmountQuota),\n\tCalendarYear = sum(SalesAmountQuota)) ~> Aggregate1\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet') ~> sink1"
+			"script": "\n\nsource(output(\n\t\tSalesQuotaKey as integer,\n\t\tEmployeeKey as integer,\n\t\tDateKey as integer,\n\t\tCalendarYear as integer,\n\t\tCalendarQuarter as integer,\n\t\tSalesAmountQuota as decimal(19,4),\n\t\tDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource1 aggregate(groupBy(CalendarYear),\n\tSalesAmountQuota = sum(),\n\t\tSalesAmountQuota = count()) ~> Aggregate1\nAggregate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet') ~> sink1"
 		}
 	}
 }
